@@ -56,6 +56,7 @@ public class Mapping {
 
     @Test
     public void mapping() {
+
         List<Employee> employees = Arrays.asList(
                 new Employee(new Person("a", "Galt", 30),
                         Arrays.asList(
