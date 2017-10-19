@@ -33,8 +33,7 @@ public class Lambdas03Exercise {
         final GenericProduct<Integer> prod = (a,i) -> {
             System.out.println("The result is:");
             return a*i;
-        };// Use statement lambda//tod
-        // o
+        };// Use statement lambda//todo
 
         assertEquals(prod.prod(3, 2), Integer.valueOf(6));
     }
