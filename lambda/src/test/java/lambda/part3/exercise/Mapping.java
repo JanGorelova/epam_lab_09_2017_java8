@@ -18,7 +18,6 @@ import static org.junit.Assert.assertEquals;
 @SuppressWarnings({"WeakerAccess"})
 public class Mapping {
 
-
     private static class MapHelper<T> {
         private final List<T> list;
 
