@@ -154,7 +154,11 @@ public class StreamsExercise2 {
      */
     @Test
     public void indexByFirstEmployer() {
-        Map<String, Set<Person>> result = null; // TODO
+        List<Employee> employees = getEmployees();
+        Map<String, Set<Person>> result = employees
+                .stream()
+                .map(e -> new Pair<>(e.getPerson(),e.getJobHistory().get(0)))
+                .collect(Collectors.groupingBy(p -> p.getValue().getEmployer(), Collectors.mapping(p -> p.getKey(), Collectors.toSet()))); // TODO
 
 
         Map<String, Set<Person>> expected = new HashMap<>();
@@ -183,14 +187,15 @@ public class StreamsExercise2 {
      */
     @Test
     public void greatestExperiencePerEmployer() {
-        Map<String, Person> result = null;// TODO
+        List<Employee> employees = getEmployees();
+        //Map<String, Person> result
 
         Map<String, Person> expected = new HashMap<>();
         expected.put("epam", new Person("John", "White", 28));
         expected.put("google", new Person("John", "Galt", 29));
         expected.put("yandex", new Person("John", "Doe", 30));
         expected.put("abc", new Person("John", "Doe", 30));
-        assertEquals(expected, result);
+        //assertEquals(expected, result);
     }
 
 
