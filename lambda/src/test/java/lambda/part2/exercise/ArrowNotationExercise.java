@@ -35,6 +35,7 @@ public class ArrowNotationExercise {
         return p -> p.getFirstName() + p.getLastName();
     }
 
+
     // TODO
     // ageOfPersonWithTheLongestFullName: (Person -> String) -> ((Person, Person) -> int)
     //
