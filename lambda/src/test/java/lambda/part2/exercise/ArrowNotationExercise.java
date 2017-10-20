@@ -31,8 +31,6 @@ public class ArrowNotationExercise {
 
     // TODO
     // getFullName: Person -> String
-
-
     public Function<Person,String> getFullName() {
         return p -> p.getFirstName() + p.getLastName();
     }
