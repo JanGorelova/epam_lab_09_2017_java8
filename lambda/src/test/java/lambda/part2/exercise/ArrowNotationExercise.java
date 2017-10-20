@@ -32,13 +32,14 @@ public class ArrowNotationExercise {
     // TODO
     // getFullName: Person -> String
 
-    // TODO
-    // ageOfPersonWithTheLongestFullName: (Person -> String) -> ((Person, Person) -> int)
-    //
+
     public Function<Person,String> getFullName() {
         return p -> p.getFirstName() + p.getLastName();
     }
 
+    // TODO
+    // ageOfPersonWithTheLongestFullName: (Person -> String) -> ((Person, Person) -> int)
+    //
     public BiFunction<Person,Person,Integer> getAgeOfPersonWithTheLongestFullName (final Function<Person,String> personStringFunction) {
         return (p1,p2) -> {
             if(personStringFunction.apply(p1).length() > personStringFunction.apply(p2).length()) {
