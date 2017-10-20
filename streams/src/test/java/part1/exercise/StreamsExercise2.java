@@ -3,9 +3,11 @@ package part1.exercise;
 import data.Employee;
 import data.JobHistoryEntry;
 import data.Person;
+import javafx.util.Pair;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -68,7 +70,10 @@ public class StreamsExercise2 {
     @Test
     public void employersStuffList() {
         List<Employee> employees = getEmployees();
-        Map<String, Set<Person>> result = null; // TODO
+        Map<String, Set<Person>> result = employees
+                .stream()
+                .flatMap(e -> e.getJobHistory().stream().map(h -> new Pair<>(e.getPerson(),h)))
+                .collect(Collectors.groupingBy(p -> p.getValue().getEmployer(),Collectors.mapping(p -> p.getKey(), Collectors.toSet()))); // TODO
 
         Map<String, Set<Person>> expected = new HashMap<>();
         expected.put("epam", new HashSet<>(Arrays.asList(
