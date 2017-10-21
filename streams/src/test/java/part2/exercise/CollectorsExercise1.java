@@ -3,9 +3,11 @@ package part2.exercise;
 import data.Employee;
 import data.JobHistoryEntry;
 import data.Person;
+import javafx.util.Pair;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CollectorsExercise1 {
 
@@ -37,7 +39,11 @@ public class CollectorsExercise1 {
     // "epam" -> "Alex Ivanov 23, Semen Popugaev 25, Ivan Ivanov 33"
     @Test
     public void getEmployeesByEmployer() {
-        Map<String, String> result = null;
+        List<Employee> employees =getEmployees();
+        Map<String, String> result = employees.stream()
+                .flatMap(e -> e.getJobHistory().stream().map(h -> new Pair<>(e,h)))
+                .collect(Collectors
+                        .groupingBy(p -> p.getValue().getEmployer(), Collectors.mapping(p -> p.getKey().getPerson().toString(),Collectors.joining(","))));
 
     }
 
