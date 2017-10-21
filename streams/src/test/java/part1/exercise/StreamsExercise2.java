@@ -160,7 +160,6 @@ public class StreamsExercise2 {
                 .map(e -> new Pair<>(e.getPerson(),e.getJobHistory().get(0)))
                 .collect(Collectors.groupingBy(p -> p.getValue().getEmployer(), Collectors.mapping(p -> p.getKey(), Collectors.toSet()))); // TODO
 
-
         Map<String, Set<Person>> expected = new HashMap<>();
         expected.put("epam", new HashSet<>(Arrays.asList(
                 new Person("John", "Galt", 20),
@@ -188,14 +187,20 @@ public class StreamsExercise2 {
     @Test
     public void greatestExperiencePerEmployer() {
         List<Employee> employees = getEmployees();
-        //Map<String, Person> result
+        Comparator<JobHistoryEntry> comparator = (j1,j2) -> Integer.compare(j1.getDuration(),j2.getDuration());
+
+        Map<String, Person> result = employees
+                .stream()
+                .flatMap(e -> e.getJobHistory().stream().map(h -> new Pair<>(e,h)))
+                .collect(Collectors.groupingBy(pair -> pair.getValue().getEmployer(),Collectors.collectingAndThen(
+                        Collectors.maxBy((p1,p2) -> comparator.compare(p1.getValue(),p2.getValue())), p -> p.isPresent()? p.get().getKey().getPerson() : null)));
 
         Map<String, Person> expected = new HashMap<>();
         expected.put("epam", new Person("John", "White", 28));
         expected.put("google", new Person("John", "Galt", 29));
         expected.put("yandex", new Person("John", "Doe", 30));
         expected.put("abc", new Person("John", "Doe", 30));
-        //assertEquals(expected, result);
+        assertEquals(expected, result);
     }
 
 
