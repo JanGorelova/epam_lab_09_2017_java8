@@ -14,6 +14,9 @@ import java.util.stream.StreamSupport;
 @Measurement(iterations = 10, time = 1)
 @State(Scope.Thread)
 public class RectangleSpliteratorExercise {
+    public static void main(String[] args) {
+
+    }
 
     @Param({"100"})
     public int outerLength;

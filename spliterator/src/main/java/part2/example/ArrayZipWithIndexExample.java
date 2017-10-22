@@ -7,8 +7,6 @@ import java.util.function.Consumer;
 public class ArrayZipWithIndexExample {
 
     public static class IndexedArraySpliterator<T> extends Spliterators.AbstractSpliterator<IndexedPair<T>> {
-
-
         private final T[] array;
         private int startInclusive;
         private final int endExclusive;

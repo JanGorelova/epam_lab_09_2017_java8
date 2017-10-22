@@ -8,6 +8,7 @@ public class ZipWithIndexDoubleSpliterator extends Spliterators.AbstractSplitera
     private final OfDouble inner;
     private int currentIndex;
 
+
     public ZipWithIndexDoubleSpliterator(OfDouble inner) {
         this(0, inner);
     }
@@ -26,28 +27,50 @@ public class ZipWithIndexDoubleSpliterator extends Spliterators.AbstractSplitera
     @Override
     public boolean tryAdvance(Consumer<? super IndexedDoublePair> action) {
         // TODO
+        if (currentIndex < inner.estimateSize()) {
+            Boolean done = inner.tryAdvance((double value) -> action.accept(new IndexedDoublePair(currentIndex, value)));
 
-        throw new UnsupportedOperationException();
+            if (done) {
+                currentIndex++;
+            }
+            return true;
+        } else return false;
     }
 
     @Override
     public void forEachRemaining(Consumer<? super IndexedDoublePair> action) {
         // TODO
-        throw new UnsupportedOperationException();
+        inner.forEachRemaining((double value) -> new IndexedDoublePair(currentIndex, value));
+        currentIndex = (int) inner.estimateSize();
     }
 
     @Override
     public Spliterator<IndexedDoublePair> trySplit() {
+        OfDouble splited;
+        Spliterator<IndexedDoublePair> newSpliterator;
+        int length = (int) inner.estimateSize() - currentIndex;
+
+        if (length < 2) {
+            return null;
+        }
+
+        if (inner.hasCharacteristics(SUBSIZED)) {
+            splited = inner.trySplit();
+            newSpliterator = new ZipWithIndexDoubleSpliterator(currentIndex, splited);
+            currentIndex += splited.estimateSize();
+        } else {
+            newSpliterator = super.trySplit();
+        }
         // TODO
         // if (inner.hasCharacteristics(???)) {
         //   use inner.trySplit
         // } else
 
-        return super.trySplit();
+        return newSpliterator;
     }
 
     @Override
     public long estimateSize() {
-       return inner.estimateSize() - currentIndex;
+        return inner.estimateSize();
     }
 }

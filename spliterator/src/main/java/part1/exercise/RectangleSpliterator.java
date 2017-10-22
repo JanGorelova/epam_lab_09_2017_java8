@@ -21,12 +21,12 @@ public class RectangleSpliterator extends Spliterators.AbstractIntSpliterator {
     }
 
     public RectangleSpliterator(int[][] array) {
-        this(array, new Coordinates(0, 0), new Coordinates(array[0].length, array.length));
+        this(array, new Coordinates(0, 0), new Coordinates(array[0].length - 1, array.length - 1));
     }
 
     private static long checkArrayAndCalcEstimatedSize(int[][] array) {
         // TODO
-        return Coordinates.cellAmount(new Coordinates(0, 0), new Coordinates(array[0].length, array.length));
+        return Coordinates.cellAmount(new Coordinates(0, 0), new Coordinates(array[0].length - 1, array.length - 1));
     }
 
     @Override
@@ -71,13 +71,16 @@ public class RectangleSpliterator extends Spliterators.AbstractIntSpliterator {
         if (checkStartEndCoordinates(startCoordinates, endCoordinates)) {
             int value = array[startCoordinates.getxCoordinate()][startCoordinates.getyCoordinate()];
             action.accept(value);
+
             if (startCoordinates.getxCoordinate() == array[0].length - 1) {
                 startCoordinates = new Coordinates(0, startCoordinates.getyCoordinate() + 1);
             } else {
                 startCoordinates = new Coordinates(startCoordinates.getxCoordinate() + 1, startCoordinates.getyCoordinate());
             }
+
             return true;
         }
+
         return false;
     }
 
@@ -96,7 +99,6 @@ public class RectangleSpliterator extends Spliterators.AbstractIntSpliterator {
                 (startCoordinates.getyCoordinate() == endCoordinates.getyCoordinate()
                         && startCoordinates.getxCoordinate() > endCoordinates.getxCoordinate()));
     }
-
 }
 
 
