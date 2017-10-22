@@ -19,7 +19,6 @@ public class RectangleSpliterator extends Spliterators.AbstractIntSpliterator {
 
     private static long checkArrayAndCalcEstimatedSize(int[][] array) {
         // TODO
-
         return array.length * array[0].length;
     }
 
