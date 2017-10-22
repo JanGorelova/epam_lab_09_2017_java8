@@ -5,7 +5,6 @@ import java.util.Spliterators;
 import java.util.function.IntConsumer;
 
 public class IntArraySpliterator extends Spliterators.AbstractIntSpliterator {
-
     private final int[] array;
     private final int endExclusive;
     private int startInclusive;

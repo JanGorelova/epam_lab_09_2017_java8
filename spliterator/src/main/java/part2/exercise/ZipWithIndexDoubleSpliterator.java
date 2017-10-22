@@ -5,8 +5,6 @@ import java.util.Spliterators;
 import java.util.function.Consumer;
 
 public class ZipWithIndexDoubleSpliterator extends Spliterators.AbstractSpliterator<IndexedDoublePair> {
-
-
     private final OfDouble inner;
     private int currentIndex;
 
