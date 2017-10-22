@@ -20,13 +20,13 @@ public class ZipWithIndexDoubleSpliterator extends Spliterators.AbstractSplitera
 
     @Override
     public int characteristics() {
-        // TODO
-        throw new UnsupportedOperationException();
+        return inner.characteristics() & (SIZED | SUBSIZED | CONCURRENT | IMMUTABLE | ORDERED);
     }
 
     @Override
     public boolean tryAdvance(Consumer<? super IndexedDoublePair> action) {
         // TODO
+
         throw new UnsupportedOperationException();
     }
 
@@ -48,7 +48,6 @@ public class ZipWithIndexDoubleSpliterator extends Spliterators.AbstractSplitera
 
     @Override
     public long estimateSize() {
-        // TODO
-        throw new UnsupportedOperationException();
+       return inner.estimateSize() - currentIndex;
     }
 }

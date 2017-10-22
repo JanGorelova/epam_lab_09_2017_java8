@@ -57,14 +57,14 @@ public class RectangleSpliteratorExercise {
 
     @Benchmark
     public long rectangleSequential() {
-        return StreamSupport.intStream(new RectangleSpliterator(array, startCoordinates, endCoordinates), false)
+        return StreamSupport.intStream(new RectangleSpliterator(array), false)
                             .asLongStream()
                             .sum();
     }
 
     @Benchmark
     public long rectangleParallel() {
-        return StreamSupport.intStream(new RectangleSpliterator(array, startCoordinates, endCoordinates), true)
+        return StreamSupport.intStream(new RectangleSpliterator(array), true)
                             .asLongStream()
                             .sum();
     }
