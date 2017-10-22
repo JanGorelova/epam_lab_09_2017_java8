@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static org.junit.Assert.assertEquals;
 
@@ -53,12 +54,36 @@ public class OptionalExample {
 
     @Test
     public void flatMap() {
-        throw new UnsupportedOperationException("Not implemented");
+        Optional<String> optional = getOptional();
+        Function<String,Optional<Integer>> function = s -> Optional.of(s.length());
+
+        Optional<Integer> expectedValue = optional.flatMap(function);
+        Optional<Integer> actualValue = Optional.empty();
+
+        if (optional.isPresent()) {
+            actualValue = function.apply(optional.get());
+        } else {
+            actualValue = Optional.empty();
+        }
+
+        assertEquals(expectedValue, actualValue);
     }
 
     @Test
     public void filter() {
-        throw new UnsupportedOperationException("Not implemented");
+        Optional<String> optional = getOptional();
+        Predicate<String> predicate = s -> s.length() > 1;
+
+        Optional<String> expectedValue = optional.filter(predicate);
+        Optional<String> actualValue = null;
+
+        if (optional.isPresent()) {
+            actualValue = predicate.test(optional.get()) ? Optional.of(optional.get()): Optional.empty();
+        } else {
+            actualValue = optional.empty();
+        }
+
+        assertEquals(expectedValue, actualValue);
     }
 
     private Optional<String> getOptional() {
