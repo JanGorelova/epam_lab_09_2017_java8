@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -106,6 +107,9 @@ public class CompletableFutureBasics {
 
         CompletableFuture<Person> result1 = new CompletableFuture<>();
         optPerson.ifPresent(person1 -> result1.complete(person1));
+
+        Consumer<Person> consumer = person1 -> result1.complete(person1);
+        Consumer<Person> personConsumer = person1 -> Optional.of(person);
 
         // TODO using optPerson.ifPresent complete result1
         assertEquals(person, result1.get());
